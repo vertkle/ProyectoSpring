@@ -1,0 +1,5 @@
+{
+    "spring.datasource.url" : "jdbc:postgresql://localhost:5432/bd_negoapp",
+    "spring.datasource.username":"root",
+    "spring.datasource.password": "root"
+}
