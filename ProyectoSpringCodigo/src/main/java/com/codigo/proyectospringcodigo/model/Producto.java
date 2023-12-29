@@ -24,7 +24,6 @@ public class Producto {
 
     @ManyToOne
     @JoinColumn(name = "categoria_id")
-    @JsonIgnore
     private Categoria categoria;
 
     @OneToMany(mappedBy = "producto")

@@ -22,11 +22,11 @@ public class ProductoEmpresa {
 
     @ManyToOne
     @JoinColumn(name = "producto_id")
-    @JsonIgnore
+    
     private Producto producto;
 
     @ManyToOne
     @JoinColumn(name = "empresa_id")
-    @JsonIgnore
+
     private Empresa empresa;
 }

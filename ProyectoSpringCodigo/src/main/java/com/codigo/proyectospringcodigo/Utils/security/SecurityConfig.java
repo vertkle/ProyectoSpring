@@ -35,9 +35,9 @@ public class SecurityConfig {
     protected SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
                 .and()
-                .csrf().csrfTokenRepository(csrfTokenRepository()).and()
+                .csrf().disable()
                 .authorizeHttpRequests()
-                .antMatchers("/api/usuario/login","/api/usuario/registrar_usuario", "/actuator/busrefresh")
+                .antMatchers("/api/usuario/login","/api/usuario/registrar_usuario", "/actuator/busrefresh", "/api/empresa", "/api/distrito")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

@@ -106,9 +106,10 @@ public class UsuarioService {
 
             if(authentication.isAuthenticated()){
                 if(customerDetailsService.getUserDetail().getEstado() == 1 ){
+                    Usuario user = findByEmailUser(request.get("email"));
                     return new ResponseEntity<String>(
                             "{\"token \":\"" + jwtUtil.generateToken(customerDetailsService.getUserDetail().getEmail(),
-                                    "-") +"\"}",
+                                    "-") +"\",\"id_emp\":"+user.getEmpresa().getEmpresa_id()+"}",
                             HttpStatus.OK);
                 }
             }else{
@@ -118,5 +119,10 @@ public class UsuarioService {
             e.printStackTrace();
         }
         return new ResponseEntity<String>("{\"mensaje\": " + "Credenciales Incorrectas"+"\"}",HttpStatus.BAD_REQUEST);
+    }
+
+    public Usuario findByEmailUser(String email_usuario)  {
+        Optional<Usuario> usuarioByEmail = usuarioRepository.findByEmail(email_usuario);
+        return usuarioByEmail.get();
     }
 }

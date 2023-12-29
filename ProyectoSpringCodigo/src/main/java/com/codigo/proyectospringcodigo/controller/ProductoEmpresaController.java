@@ -29,7 +29,7 @@ public class ProductoEmpresaController {
         return new ResponseEntity<>(prodEmp, HttpStatus.OK);
     }
 
-    @PutMapping
+    @PostMapping("/actualizar")
     public ResponseEntity<ProductoEmpresa>updateProdEmpController(@RequestBody Map<String,String>request) throws ErrorResponseException {
         ProductoEmpresa prodEmp = productoEmpresaService.updateProductoEmpresa(request);
         return new ResponseEntity<>(prodEmp, HttpStatus.OK);
@@ -39,5 +39,11 @@ public class ProductoEmpresaController {
     public ResponseEntity<ProductoEmpresa>eliminarCalificacionController(@RequestBody Map<String, String>request) throws ErrorResponseException {
         ProductoEmpresa prodEmp = productoEmpresaService.eliminarProductoEmpresa(request);
         return new ResponseEntity<>(prodEmp, HttpStatus.OK);
+    }
+
+    @PostMapping("/get_by_empresa")
+    public ResponseEntity<List<ProductoEmpresa>>findByEmpresa(@RequestBody Map<String, String>request) throws ErrorResponseException {
+        List<ProductoEmpresa> listaProdEmp = productoEmpresaService.findByEmpresa(request);
+        return new ResponseEntity<>(listaProdEmp, HttpStatus.OK);
     }
 }

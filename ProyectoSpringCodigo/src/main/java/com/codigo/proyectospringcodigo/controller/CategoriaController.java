@@ -35,7 +35,7 @@ public class CategoriaController {
         return new ResponseEntity<>(cat, HttpStatus.OK);
     }
 
-    @DeleteMapping
+    @PostMapping("/eliminar_categoria")
     public ResponseEntity<Categoria> eliminarCategoriaController(@RequestBody Map<String, String> request) throws ErrorResponseException {
         Categoria cat = categoriaService.eliminarCategoria(request);
         return new ResponseEntity<>(cat, HttpStatus.OK);

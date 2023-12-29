@@ -5,6 +5,7 @@ import com.codigo.proyectospringcodigo.model.Empresa;
 import com.codigo.proyectospringcodigo.services.EmpresaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/empresa")
+@RequestMapping(value = "/api/empresa")
+@CrossOrigin
 public class EmpresaController {
     @Autowired
     private EmpresaService empresaService;
@@ -23,7 +25,7 @@ public class EmpresaController {
         return new ResponseEntity<>(listaEmpresa, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Empresa>createEmpresaController(@RequestBody Map<String,String>request) throws ErrorResponseException {
         Empresa emp = empresaService.createEmpresa(request);
         return new ResponseEntity<>(emp, HttpStatus.OK);

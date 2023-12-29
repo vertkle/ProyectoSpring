@@ -13,8 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.codigo.proyectospringcodigo.Utils.Constantes.ESTADO_ACTIVO;
-import static com.codigo.proyectospringcodigo.Utils.Constantes.EX_NOT_FOUND_RECURSO;
+import static com.codigo.proyectospringcodigo.Utils.Constantes.*;
 import static com.codigo.proyectospringcodigo.Utils.Utilitarios.*;
 
 @Service
@@ -26,19 +25,21 @@ public class EmpresaService {
         return empresaRepository.findAll();
     }
     public Empresa createEmpresa(Map<String, String>empresa) throws ErrorResponseException {
-        String parametrosRequeridos [] = {"nombre_empresa","ruc_empresa","logo_empresa","latitud","longitud","descripcion","celular",
+        String parametrosRequeridos [] = {"nombre_empresa","ruc_empresa","celular",
         "direccion","referencia_direccion"};
         IsValidateParametros(empresa, parametrosRequeridos);
         IsNotEmptyValores(empresa, parametrosRequeridos);
         IsValidateId(empresa, "distrito_id");
-
+        IsInsertEmpresa(empresa.get("ruc_empresa"));
 
         Empresa emp = new Empresa();
         emp.setNombre_empresa(empresa.get("nombre_empresa"));
         emp.setRuc_empresa(empresa.get("ruc_empresa"));
-        emp.setLogo_empresa(empresa.get("logo_empresa"));
-        emp.setLatitud(empresa.get("latitud"));
-        emp.setLongitud(empresa.get("longitud"));
+
+        emp.setLogo_empresa(null);
+        emp.setLatitud(null);
+        emp.setLongitud(null);
+
         emp.setDescripcion(empresa.get("descripcion"));
         emp.setCelular(empresa.get("celular"));
         emp.setDireccion(empresa.get("direccion"));
@@ -90,5 +91,13 @@ public class EmpresaService {
         Empresa empresaBuscado = findByIdEmpresa(Integer.parseInt(empresa.get("empresa_id")));
         empresaRepository.delete(empresaBuscado);
         return empresaBuscado;
+    }
+
+    public Boolean IsInsertEmpresa(String ruc) throws ErrorResponseException {
+        Optional<Empresa> empresa = empresaRepository.findByRuc_empresa(ruc);
+        if(empresa.isPresent()){
+            throw new ErrorResponseException(EMPRESA_ENCONTRADA,HttpStatus.FOUND.value(), HttpStatus.FOUND);
+        }
+        return true;
     }
 }

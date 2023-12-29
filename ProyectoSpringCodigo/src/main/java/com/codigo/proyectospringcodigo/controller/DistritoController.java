@@ -15,17 +15,17 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/distrito")
-@RefreshScope
+//@RefreshScope
 public class DistritoController {
     @Autowired
     private DistritoService distritoService;
 
-    @Value("${app.testProp}")
-    private String testProp;
-    @GetMapping("/test-prod")
-    public String getTestProp(){
-        return this.testProp;
-    }
+//    @Value("${app.testProp}")
+//    private String testProp;
+//    @GetMapping("/test-prod")
+//    public String getTestProp(){
+//        return this.testProp;
+//    }
 
     @GetMapping
     public ResponseEntity<List<Distrito>> findAllDistritosController(){
@@ -45,7 +45,7 @@ public class DistritoController {
         return new ResponseEntity<>(dis,HttpStatus.OK);
     }
 
-    @DeleteMapping
+    @PostMapping("/delete")
     public ResponseEntity<Distrito> deleteDistrito(@RequestBody Map<String,String> distrito) throws ErrorResponseException {
         Distrito dis = distritoService.eliminarDistrito(distrito);
         return new ResponseEntity<>(dis, HttpStatus.OK);

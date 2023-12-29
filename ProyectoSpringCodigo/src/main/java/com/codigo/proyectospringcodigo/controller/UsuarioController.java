@@ -26,7 +26,7 @@ public class UsuarioController {
         return new ResponseEntity<>(listaUsuarios, HttpStatus.OK);
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody(required = true) Map<String,String> requestMap){
         try {
             return usuarioService.login(requestMap);

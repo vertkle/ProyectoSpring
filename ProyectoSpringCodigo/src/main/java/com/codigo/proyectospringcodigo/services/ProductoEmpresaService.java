@@ -79,4 +79,13 @@ public class ProductoEmpresaService {
         prodEmpRepository.delete(prodEmp);
         return prodEmp;
     }
+
+    public List<ProductoEmpresa> findByEmpresa(Map<String, String> request) throws ErrorResponseException {
+        String parametrosRequeridos [] = {"empresa_id"};
+        IsValidateParametros(request, parametrosRequeridos);
+        IsNotEmptyValores(request, parametrosRequeridos);
+        IsValidateId(request, "empresa_id");
+
+        return prodEmpRepository.findByEmpresa_EmpresaId(Integer.parseInt(request.get("empresa_id")));
+    }
 }
